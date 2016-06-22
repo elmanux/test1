@@ -11,10 +11,11 @@ import data.Doc;
 public class Testdata1 {
 	public static void main(String[] args) throws Exception {
 		Testdata1 t = new Testdata1();
-		Set<Doc> write = t.write(10, 10);
-		Set<Doc> read = t.read();
 
+		Set<Doc> write = t.write(10, 10);
 		print(write);
+
+		Set<Doc> read = t.read();
 		print(read);
 
 	}
@@ -52,8 +53,11 @@ public class Testdata1 {
 			Doc doc = new Doc();
 			doc.dir = docFolder;
 			doc.doc = docDoc;
-			for (int t = 0; t < cntTags; t++) {
-				doc.tags.add("#" + rand.nextInt(cntTags));
+			while (doc.tags.size() < rand.nextInt(cntTags)) {
+				int nt = rand.nextInt(cntTags);
+				if (!doc.tags.contains("#" + nt)) {
+					doc.tags.add("#" + nt);
+				}
 			}
 			doc.write();
 			docs.add(doc);

@@ -2,8 +2,8 @@ package data;
 
 import java.io.File;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,10 +12,11 @@ public class Doc {
 
 	public File doc;
 
-	public List<String> tags;
+	public Set<String> tags;
 
 	public Doc() {
-		tags = new ArrayList<>();
+		// tags = new ArrayList<>();
+		tags = new HashSet<String>();
 	}
 
 	private String LS = System.getProperty("line.separator");
