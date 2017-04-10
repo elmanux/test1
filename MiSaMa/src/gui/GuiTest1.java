@@ -71,7 +71,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		setSize(500, 400);
 		setVisible(true);
 
-		dirWorld = new File(defaultSaveDir + "/New World");
+		dirWorld = new File(defaultSaveDir + "/W17");
 		setNewSelectedWorld(dirWorld);
 	}
 
