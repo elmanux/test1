@@ -46,7 +46,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 	private CopyUtil copyUtil = new CopyUtil();
 
 	public GuiTest1() {
-		super("");
+		super("SGB");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		fileChooser = new JFileChooser(defaultSaveDir);
