@@ -44,7 +44,7 @@ public class BackupTableModel extends DefaultTableModel {
 
 	File getSelectedBackup() {
 		for (int row = 0; row < getRowCount(); row++) {
-			if (((Boolean) getValueAt(row, COL_SEL)).equals(Boolean.TRUE)) {
+			if (Boolean.TRUE.equals(((Boolean) getValueAt(row, COL_SEL)))) {
 				return (File) getValueAt(row, 0);
 			}
 		}

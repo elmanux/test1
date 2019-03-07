@@ -66,17 +66,19 @@ public class CopyUtil {
 	}
 
 	public long getChecksum(File dir) {
-		long l = 0;
-		try {
-			for (File f : dir.listFiles()) {
-				if (f.isDirectory()) {
-					// l += getChecksum(f);
-				} else {
-					l += FileUtils.checksumCRC32(f);
+		long l = -1;
+		if (dir != null && dir.exists()) {
+			try {
+				for (File f : dir.listFiles()) {
+					if (f.isDirectory()) {
+						// l += getChecksum(f);
+					} else {
+						l += FileUtils.checksumCRC32(f);
+					}
 				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return l;
 	}

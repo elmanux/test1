@@ -7,9 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.io.File;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,7 +32,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		new GuiTest1();
 	}
 
-	private String defaultSaveDir = "C:/Users/Manuel/.litwrl/games/LitWR.Basic/saves";
+	private String defaultSaveDir = "C:\\Users\\elman\\AppData\\Roaming\\.minecraft\\saves";
 
 	private File dirWorld;
 
@@ -49,7 +54,13 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		super("SGB");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		fileChooser = new JFileChooser(defaultSaveDir);
+		Path path = FileSystems.getDefault().getPath(defaultSaveDir);
+		if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+			fileChooser = new JFileChooser(path.toFile());
+		} else {
+			fileChooser = new JFileChooser();
+		}
+
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		lSavedir = new JLabel(defaultSaveDir);
 		lWorld = new JLabel("?");
@@ -71,8 +82,10 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		setSize(500, 400);
 		setVisible(true);
 
-		dirWorld = new File(defaultSaveDir + "/W17");
-		setNewSelectedWorld(dirWorld);
+		bSelectWorld.doClick();
+
+//		dirWorld = new File(defaultSaveDir + "/W17");
+//		setNewSelectedWorld(dirWorld);
 	}
 
 	private JButton getButton(String text) {
@@ -117,6 +130,9 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		pNorth.add(pDirButtons, BorderLayout.EAST);
 
 		setLayout(new BorderLayout());
+
+		pNorth.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+
 		add(pNorth, BorderLayout.NORTH);
 		add(spBackups, BorderLayout.CENTER);
 		add(bRestore, BorderLayout.SOUTH);
