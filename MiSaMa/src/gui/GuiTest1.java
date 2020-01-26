@@ -36,7 +36,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 
 	private File dirWorld;
 
-	private JLabel lSavedir, lWorld, lCheck;
+	private JLabel lSavedir, lWorld, lCheck, lBackupSize;
 
 	private JButton bSelectWorld, bBackup, bRestore, bRefresh;
 
@@ -65,6 +65,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 		lSavedir = new JLabel(defaultSaveDir);
 		lWorld = new JLabel("?");
 		lCheck = new JLabel("?");
+		lBackupSize = new JLabel("?");
 
 		bSelectWorld = getButton("select");
 		bBackup = getButton("backup");
@@ -115,12 +116,13 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 
 	private void buildLayout() {
 
-		JPanel pDirLabels = new JPanel(new GridLayout(3, 1));
+		JPanel pDirLabels = new JPanel(new GridLayout(4, 1));
 		pDirLabels.add(lSavedir);
 		pDirLabels.add(lWorld);
 		pDirLabels.add(lCheck);
+		pDirLabels.add(lBackupSize);
 
-		JPanel pDirButtons = new JPanel(new GridLayout(3, 1));
+		JPanel pDirButtons = new JPanel(new GridLayout(4, 1));
 		pDirButtons.add(bSelectWorld);
 		pDirButtons.add(bRefresh);
 		pDirButtons.add(bBackup);
@@ -141,6 +143,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 	public void refreshGui() {
 		bRestore.setEnabled(tmBackups.getSelectedBackup() != null);
 		lCheck.setText("" + copyUtil.getChecksum(dirWorld));
+		lBackupSize.setText("" + copyUtil.getBackupSizeInGb(dirWorld));
 	}
 
 	protected void refreshBackupList() {
@@ -152,6 +155,7 @@ public class GuiTest1 extends JFrame implements ActionListener, WindowFocusListe
 			tmBackups.addBackup(e.getKey(), e.getValue());
 		}
 
+		refreshGui();
 		repaint();
 	}
 
